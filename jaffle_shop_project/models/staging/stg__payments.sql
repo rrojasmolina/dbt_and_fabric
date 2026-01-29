@@ -5,4 +5,4 @@ select
     STATUS as status,
     AMOUNT/100 as amount,
     CREATED as payment_date
-from dbo.src__payments
+from {{source('jaffle_shop','payments')}}
