@@ -31,7 +31,17 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   jaffle_shop_project:
     # Config indicated by + and applies to all files under models/example/
-    staging:
+    silver:
       +materialized: view
-    marts:
+      +schema: silver
+      +enabled: true
+    gold:
       +materialized: table
+      +schema: gold
+      +enabled: true
+      +post-hook:
+        -  "GRANT SELECT ON OBJECT::{{ this }} TO user_gold"
+    some_tests:
+      +materialized: table
+      +schema: some_tests
+      +enabled: true
